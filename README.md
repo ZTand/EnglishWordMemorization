@@ -1,0 +1,3 @@
+# EnglishWordMemorization
+
+Toy Project

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>Lesson4</item><item>Lesson4</item><item>Lesson4</item><item>Lesson4</item><item>Lesson4</item>
+        <item>Lesson5</item><item>Lesson5</item><item>Lesson5</item><item>Lesson5</item><item>Lesson5</item>
+    </string-array>
+    
+    <string-array name="english">
+        <item>translate</item>
+        <item>community center</item>
+        <item>NGO</item>
+        <item>sponsor</item>
+        <item>keep up with</item>
+
+        <item>art gallery</item>
+        <item>parmesan cheese</item>
+        <item>odd</item>
+        <item>pour in</item>
+        <item>kit</item>
+    </string-array>
+
+    <string-array name="korean">
+        <item>번역하다</item>
+        <item>주민 센터</item>
+        <item>비정부기구</item>
+        <item>후원자</item>
+        <item>~을 따라잡다</item>
+
+        <item>미술관</item>
+        <item>파르메산 치즈</item>
+        <item>이상한, 특이한</item>
+        <item>~을 안에 붓다, 따르다</item>
+        <item>(도구, 장비)세트</item>
+    </string-array>
+
+</resources>

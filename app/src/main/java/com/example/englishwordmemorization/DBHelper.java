@@ -13,10 +13,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String wordSQL = "create table eng_word " +
-                "(_id integer primary key autoincrement," +
-                "english, " +
-                "korean)";
+        String wordSQL = "create table eng_word (category,english,korean)";
         db.execSQL(wordSQL);
     }
 

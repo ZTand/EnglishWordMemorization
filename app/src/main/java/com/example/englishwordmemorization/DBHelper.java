@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context) {
         super(context, "engWordDB", null, DATABASE_VERSION);
@@ -35,6 +35,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("drop table eng_word");
+        onCreate(db);
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table eng_word");
         onCreate(db);
     }

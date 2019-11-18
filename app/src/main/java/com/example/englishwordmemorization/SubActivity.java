@@ -50,13 +50,17 @@ public class SubActivity extends AppCompatActivity implements AdapterView.OnItem
         }
 
         subClass = new LinkedHashSet<>(Arrays.asList(subClass)).toArray(new String[0]);
+        Arrays.sort(subClass, String.CASE_INSENSITIVE_ORDER);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, subClass);
         subClassListView.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent intent = new Intent(this, ContentActivity.class);
+        intent.putExtra("mainCategoryName", mainCategoryName);
+        intent.putExtra("subClassName", subClass[position]);
+        startActivity(intent);
     }
 }
 

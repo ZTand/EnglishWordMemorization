@@ -2,43 +2,34 @@ package com.example.englishwordmemorization;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    ListView listView;
-    String[] categoryArr;
-    String[] englishArr;
-    String[] koreanArr;
-    String[] datas;
+    ListView mainCategoryListView;
+    String[] mainCategory = {"고2 영어 교과서"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView = findViewById(R.id.listView);
 
-        categoryArr = getResources().getStringArray(R.array.category);
-        englishArr = getResources().getStringArray(R.array.english);
-        koreanArr = getResources().getStringArray(R.array.korean);
+        mainCategoryListView = findViewById(R.id.mainCategory_listView);
+        mainCategoryListView.setOnItemClickListener(this);
 
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        int i;
-        for(i = 0; i < categoryArr.length; i++) {
-            db.execSQL("insert into eng_word (category, english, korean) values (?,?,?)",
-                    new String[]{categoryArr[i], englishArr[i], koreanArr[i]});
-        }
-        i = 0;
-        datas = new String[categoryArr.length];
-        Cursor cursor = db.rawQuery("select category, english, korean from eng_word", null);
-        while (cursor.moveToNext()) {
-            datas[i++] = cursor.getString(0) + "      " + cursor.getString(1) + "      " + cursor.getString(2);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datas);
-        listView.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mainCategory);
+        mainCategoryListView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, SubActivity.class);
+        intent.putExtra("mainCategoryName", mainCategory[position]);
+        startActivity(intent);
     }
 }

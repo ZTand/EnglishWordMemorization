@@ -6,8 +6,8 @@
     android:orientation="vertical"
     tools:context=".ContentActivity">
 
-    <ListView
-        android:id="@+id/content_listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/content_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

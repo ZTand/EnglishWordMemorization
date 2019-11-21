@@ -1,6 +1,8 @@
 package com.example.englishwordmemorization;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,9 +17,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ContentActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ContentActivity extends AppCompatActivity {
 
-    ListView contentListView;
+    RecyclerView contentRecyclerView;
     String mainCategoryName;
     String subClassName;
     ArrayList<HashMap<String, String>> datas = new ArrayList<>();
@@ -28,8 +30,7 @@ public class ContentActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
 
-        contentListView = findViewById(R.id.content_listView);
-        contentListView.setOnItemClickListener(this);
+        contentRecyclerView = findViewById(R.id.content_recyclerView);
 
         Intent intent = getIntent();
         mainCategoryName = intent.getStringExtra("mainCategoryName");
@@ -51,14 +52,7 @@ public class ContentActivity extends AppCompatActivity implements AdapterView.On
         }catch(Exception e){
             e.printStackTrace();
         }
-
-        SimpleAdapter adapter = new SimpleAdapter(this, datas, android.R.layout.simple_list_item_2,
-                new String[]{"eng", "kor"}, new int[]{android.R.id.text1, android.R.id.text2});
-        contentListView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, position + "번째 선택...", Toast.LENGTH_SHORT).show();
+        contentRecyclerView.setAdapter(new ContentAdapter(datas));
+        contentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

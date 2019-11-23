@@ -1,23 +1,25 @@
 package com.example.englishwordmemorization;
 
+import android.app.PendingIntent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.Toast;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentViewHolder>{
 
-    private ArrayList<HashMap<String, String>> list;
+    private ArrayList<ContentData> list;
 
-    public ContentAdapter(ArrayList<HashMap<String, String>> list) {
+    public ContentAdapter(ArrayList<ContentData> list) {
         this.list = list;
     }
 
@@ -30,9 +32,27 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull final ContentViewHolder holder, final int position) {
-         HashMap<String, String> hashMap = list.get(position);
-         holder.contentEngTextView.setText(hashMap.get("eng"));
-         holder.contentKorTextView.setText(hashMap.get("kor"));
+         final ContentData data = list.get(position);
+         holder.contentEngTextView.setText(data.getEnglish());
+         holder.contentKorTextView.setText(data.getKorean());
+         holder.contentCheckBox.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if(position != RecyclerView.NO_POSITION) {
+                     data.setCheck(!data.getCheck());
+                     notifyDataSetChanged();
+                 }
+             }
+         });
+         if(data.getCheck()) {
+             holder.contentCheckBox.setChecked(true);
+             holder.itemLinearLayout.setBackgroundResource(R.color.ContentCheckedColor);
+             holder.contentBookmarkAdd.setImageResource(R.drawable.checkedbookmark);
+         }else{
+             holder.contentCheckBox.setChecked(false);
+             holder.itemLinearLayout.setBackgroundResource(R.color.ContentUncheckedColor);
+             holder.contentBookmarkAdd.setImageResource(R.drawable.bookmark);
+         }
     }
 
     @Override

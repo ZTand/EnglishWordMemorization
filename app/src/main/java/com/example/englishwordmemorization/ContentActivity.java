@@ -22,8 +22,7 @@ public class ContentActivity extends AppCompatActivity {
     RecyclerView contentRecyclerView;
     String mainCategoryName;
     String subClassName;
-    ArrayList<HashMap<String, String>> datas = new ArrayList<>();
-    HashMap<String, String> content;
+    ArrayList<ContentData> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +43,16 @@ public class ContentActivity extends AppCompatActivity {
 
         try{
             while(cursor.moveToNext()) {
-                content = new HashMap<>();
-                content.put("eng", cursor.getString(0));
-                content.put("kor", cursor.getString(1));
-                datas.add(content);
+                ContentData content = new ContentData();
+                content.setEnglish(cursor.getString(0));
+                content.setKorean(cursor.getString(1));
+                content.setCheck(false);
+                data.add(content);
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-        contentRecyclerView.setAdapter(new ContentAdapter(datas));
+        contentRecyclerView.setAdapter(new ContentAdapter(data));
         contentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

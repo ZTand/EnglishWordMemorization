@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context) {
         super(context, "engWordDB", null, DATABASE_VERSION);
@@ -20,6 +20,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 "englishWord not null, " +
                 "koreanWord not null)";
         db.execSQL(tableSql);
+
+        db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('중3 영어 교과서', 'Chapter ?', 'translate', '번역하다')");
+
+        db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고1 영어 교과서', 'Chapter ?', 'translate', '번역하다')");
 
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 4', 'translate', '번역하다')");
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 4', 'community center', '주민 센터')");
@@ -201,6 +205,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 6', 'raise', '기르다')");
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 6', 'ecosystem', '생태계')");
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 6', 'bodies of water', '수역')");
+
+        db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고3 영어 교과서', 'Chapter ?', 'translate', '번역하다')");
     }
 
     @Override

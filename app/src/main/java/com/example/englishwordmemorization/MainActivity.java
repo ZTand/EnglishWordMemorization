@@ -1,6 +1,9 @@
 package com.example.englishwordmemorization;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,48 +12,44 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    ListView mainCategoryListView;
-    String[] mainCategory;
+    RecyclerView mainRecyclerView;
+    LinkedHashSet<MainData> category = new LinkedHashSet<>();
+    ArrayList<String> mainCategory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainCategoryListView = findViewById(R.id.mainCategory_listView);
-        mainCategoryListView.setOnItemClickListener(this);
+        mainRecyclerView = findViewById(R.id.main_recyclerView);
 
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select mainCategory from eng_word", null);
-        int count = cursor.getCount();
-        mainCategory = new String[count];
-        int i = 0;
 
         try {
             while(cursor.moveToNext()) {
-                mainCategory[i++] = cursor.getString(0);
+                MainData mainData = new MainData();
+                String tmp = cursor.getString(0);
+                mainData.setCategory(tmp);
+                category.add(mainData);
+                mainCategory.add(tmp);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        mainCategory = new LinkedHashSet<>(Arrays.asList(mainCategory)).toArray(new String[0]);
-        Arrays.sort(mainCategory, String.CASE_INSENSITIVE_ORDER);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mainCategory);
-        mainCategoryListView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, SubActivity.class);
-        intent.putExtra("mainCategoryName", mainCategory[position]);
-        startActivity(intent);
+        ArrayList<MainData> data2 = new ArrayList<>(category);
+        mainRecyclerView.setAdapter(new MainAdapter(data2, mainCategory));
+        mainRecyclerView.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
     }
 }

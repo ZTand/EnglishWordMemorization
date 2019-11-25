@@ -7,6 +7,19 @@
     android:orientation="vertical"
     tools:context=".ContentActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/content_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999999"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/content_recyclerView"
         android:layout_width="match_parent"

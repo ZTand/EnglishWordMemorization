@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,13 +30,19 @@ public class SubActivity extends AppCompatActivity {
 
     RecyclerView subClassRecyclerView;
     String mainCategoryName;
-    HashSet<SubClassData> data = new HashSet<>();
+    LinkedHashSet<SubClassData> data = new LinkedHashSet<>();
     ArrayList<String> nameData = new ArrayList<>();
+
+    TextView chapterNumTextView;
+    TextView wordNumTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
+
+        chapterNumTextView = findViewById(R.id.sub_chapter_num);
+        wordNumTextView = findViewById(R.id.sub_word_num);
 
         subClassRecyclerView = findViewById(R.id.subClass_recyclerView);
         Intent intent = getIntent();
@@ -49,7 +56,7 @@ public class SubActivity extends AppCompatActivity {
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select subClass from eng_word where mainCategory = (?);", new String[]{mainCategoryName});
-
+        int count = 0;
         try {
             while (cursor.moveToNext()) {
                 SubClassData subclass = new SubClassData();
@@ -57,10 +64,14 @@ public class SubActivity extends AppCompatActivity {
                 subclass.setClassName(tmp);
                 data.add(subclass);
                 nameData.add(tmp);
+                count++;
             }
         }catch(Exception e){
             e.printStackTrace();
         }
+
+        chapterNumTextView.setText(data.size() + "챕터");
+        wordNumTextView.setText(count + "단어");
         ArrayList<SubClassData> data2 = new ArrayList<>(data);
         subClassRecyclerView.setAdapter(new SubClassAdapter(data2, mainCategoryName, nameData));
         subClassRecyclerView.setLayoutManager(new LinearLayoutManager(this));

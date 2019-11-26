@@ -18,6 +18,37 @@
         android:layout_height="1dp"
         android:background="#999999"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#DDDDDD">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sublisticon"/>
+        <TextView
+            android:id="@+id/sub_chapter_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/subalphabeticon"/>
+        <TextView
+            android:id="@+id/sub_word_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999999"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subClass_recyclerView"
         android:layout_width="match_parent"

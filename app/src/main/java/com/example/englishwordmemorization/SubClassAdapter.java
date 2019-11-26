@@ -38,7 +38,7 @@ public class SubClassAdapter extends RecyclerView.Adapter<SubClassViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ContentActivity.class);
                 intent.putExtra("mainCategoryName", mainCategoryName);
-                intent.putExtra("subClassName", datas.get(position));
+                intent.putExtra("subClassName", data.getClassName());
                 v.getContext().startActivity(intent);
             }
         });

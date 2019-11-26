@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select mainCategory from eng_word", null);
-
+        int countWord = 0;
         try {
             while(cursor.moveToNext()) {
                 MainData mainData = new MainData();
@@ -44,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
                 mainData.setCategory(tmp);
                 category.add(mainData);
                 mainCategory.add(tmp);
+                countWord++;
             }
         }catch (Exception e){
             e.printStackTrace();
         }
         ArrayList<MainData> data2 = new ArrayList<>(category);
+
         mainRecyclerView.setAdapter(new MainAdapter(data2, mainCategory));
         mainRecyclerView.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
     }

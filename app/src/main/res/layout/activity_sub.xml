@@ -26,21 +26,57 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/sublisticon"/>
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center"
+            android:src="@drawable/sublisticon" />
         <TextView
+            android:layout_marginLeft="8dp"
             android:id="@+id/sub_chapter_num"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_gravity="center"
             android:src="@drawable/subalphabeticon"/>
         <TextView
+            android:layout_marginLeft="8dp"
             android:id="@+id/sub_word_num"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/all_word_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0099FF"
+            android:text="모든 단어 Test"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"/>
 
     </LinearLayout>
 

@@ -201,6 +201,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 6', 'raise', '기르다')");
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 6', 'ecosystem', '생태계')");
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 6', 'bodies of water', '수역')");
+
+
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class SubActivity extends AppCompatActivity {
 
     TextView chapterNumTextView;
     TextView wordNumTextView;
+    Button allWOrdTestButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class SubActivity extends AppCompatActivity {
 
         chapterNumTextView = findViewById(R.id.sub_chapter_num);
         wordNumTextView = findViewById(R.id.sub_word_num);
+        allWOrdTestButton = findViewById(R.id.all_word_test);
 
         subClassRecyclerView = findViewById(R.id.subClass_recyclerView);
         Intent intent = getIntent();

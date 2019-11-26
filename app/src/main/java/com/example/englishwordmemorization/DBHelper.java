@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 7;
 
     public DBHelper(Context context) {
         super(context, "engWordDB", null, DATABASE_VERSION);
@@ -13,7 +13,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String tableSql = "create table eng_word (" +
+
+        String tableSql = "create table test_word (" +
+                "_id integer primary key autoincrement," +
+                "mainCategory not null, " +
+                "subClass not null, " +
+                "englishWord not null, " +
+                "koreanWord not null)";
+        db.execSQL(tableSql);
+
+        tableSql = "create table eng_word (" +
                 "_id integer primary key autoincrement," +
                 "mainCategory not null, " +
                 "subClass not null, " +

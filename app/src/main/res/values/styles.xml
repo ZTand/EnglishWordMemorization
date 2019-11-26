@@ -10,18 +10,30 @@
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#FFFFFF</item>
         <item name="colorPrimaryDark">#999999</item>
-        <item name="colorAccent">@color/colorAccent</item>\
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="SubTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#FFFFFF</item>
         <item name="colorPrimaryDark">#999999</item>
-        <item name="colorAccent">@color/colorAccent</item>\
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="ContentTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#FFFFFF</item>
         <item name="colorPrimaryDark">#999999</item>
-        <item name="colorAccent">@color/colorAccent</item>\
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="QuizChooseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#999999</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SolveMeaningTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#999999</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

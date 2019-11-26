@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.TreeSet;
 
-public class SubActivity extends AppCompatActivity {
+public class SubActivity extends AppCompatActivity implements View.OnClickListener{
 
     RecyclerView subClassRecyclerView;
     String mainCategoryName;
@@ -36,7 +36,7 @@ public class SubActivity extends AppCompatActivity {
 
     TextView chapterNumTextView;
     TextView wordNumTextView;
-    Button allWOrdTestButton;
+    Button allWordTestButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,8 @@ public class SubActivity extends AppCompatActivity {
 
         chapterNumTextView = findViewById(R.id.sub_chapter_num);
         wordNumTextView = findViewById(R.id.sub_word_num);
-        allWOrdTestButton = findViewById(R.id.all_word_test);
+        allWordTestButton = findViewById(R.id.all_word_test);
+        allWordTestButton.setOnClickListener(this);
 
         subClassRecyclerView = findViewById(R.id.subClass_recyclerView);
         Intent intent = getIntent();
@@ -89,6 +90,34 @@ public class SubActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == allWordTestButton) {
+            String sub, eng, kor;
+            DBHelper helper = new DBHelper(this);
+            SQLiteDatabase db = helper.getWritableDatabase();
+
+            db.execSQL("drop table test_word");
+            String tableSql = "create table test_word (" +
+                    "_id integer primary key autoincrement," +
+                    "mainCategory not null, " +
+                    "subClass not null, " +
+                    "englishWord not null, " +
+                    "koreanWord not null)";
+            db.execSQL(tableSql);
+
+            Cursor cursor = db.rawQuery("select subClass, englishWord, koreanWord from eng_word where mainCategory = (?);", new String[]{mainCategoryName});
+            while(cursor.moveToNext()) {
+                sub = cursor.getString(0);
+                eng = cursor.getString(1);
+                kor = cursor.getString(2);
+                db.execSQL("insert into test_word (mainCategory, subClass, englishWord, koreanWord) values (?,?,?,?)", new String[]{mainCategoryName, sub, eng, kor});
+            }
+            Intent intent = new Intent(this, QuizChooseActivity.class);
+            startActivity(intent);
+        }
     }
 }
 

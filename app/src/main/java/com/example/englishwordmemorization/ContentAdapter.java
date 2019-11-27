@@ -17,10 +17,12 @@ import java.util.HashMap;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentViewHolder>{
 
+    CheckBox allCheckBox;
     private ArrayList<ContentData> list;
 
-    public ContentAdapter(ArrayList<ContentData> list) {
+    public ContentAdapter(ArrayList<ContentData> list, CheckBox allCheckBox) {
         this.list = list;
+        this.allCheckBox = allCheckBox;
     }
 
     @NonNull
@@ -46,10 +48,22 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentViewHolder>{
          });
          if(data.getCheck()) {
              holder.contentCheckBox.setChecked(true);
+             boolean b = true;
+             for(int i = 0; i < list.size(); i++) {
+                 ContentData contentData= list.get(i);
+                 if(!contentData.getCheck()) {
+                     b = false;
+                     break;
+                 }
+             }
+             if(b) {
+                 allCheckBox.setChecked(true);
+             }
              holder.itemLinearLayout.setBackgroundResource(R.color.ContentCheckedColor);
              holder.contentBookmarkAdd.setImageResource(R.drawable.checkedbookmark);
          }else{
              holder.contentCheckBox.setChecked(false);
+             allCheckBox.setChecked(false);
              holder.itemLinearLayout.setBackgroundResource(R.color.ContentUncheckedColor);
              holder.contentBookmarkAdd.setImageResource(R.drawable.bookmark);
          }

@@ -7,10 +7,15 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.PendingIntent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +25,16 @@ import java.util.Iterator;
 
 public class SolveMeaningActivity extends AppCompatActivity implements View.OnClickListener{
 
+    LinearLayout solve_meaning_layout;
     TextView wordCount;
     TextView seeEnglishWord;
 
     Button button1;
     Button button2;
     Button button3;
+
+    ImageView oMarkImageView;
+    ImageView xMarkImageView;
 
     ArrayList<String> korList = new ArrayList<>();
     ArrayList<String> engList = new ArrayList<>();
@@ -42,11 +51,14 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(" ");
 
+        solve_meaning_layout = findViewById(R.id.solve_meaning_layout);
         wordCount = findViewById(R.id.word_count_textView);
         seeEnglishWord = findViewById(R.id.see_english_word);
         button1 = findViewById(R.id.choose_kor_1);
         button2 = findViewById(R.id.choose_kor_2);
         button3 = findViewById(R.id.choose_kor_3);
+        oMarkImageView = findViewById(R.id.o_mark);
+        xMarkImageView = findViewById(R.id.x_mark);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
@@ -78,38 +90,101 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if(v == button1) {
             if(button1.getText() == korList.get(i - 1)) {
-                Toast.makeText(this, "정답", Toast.LENGTH_SHORT).show();
-                i++;
-                renewal();
+                oMarkImageView.setVisibility(View.VISIBLE);
+
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        oMarkImageView.setVisibility(View.GONE);
+                        i++;
+                        renewal();
+                    }
+                }, 1000);
             }else{
-                Toast.makeText(this, "오답", Toast.LENGTH_SHORT).show();
-                i++;
-                renewal();
+                xMarkImageView.setVisibility(View.VISIBLE);
+                solve_meaning_layout.setBackgroundColor(Color.rgb(255, 51, 51));
+
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        xMarkImageView.setVisibility(View.GONE);
+                        solve_meaning_layout.setBackgroundColor(Color.rgb(0, 204, 204));
+                        i++;
+                        renewal();
+                    }
+                }, 1000);
             }
         }else if(v == button2) {
             if(button2.getText() == korList.get(i - 1)) {
-                Toast.makeText(this, "정답", Toast.LENGTH_SHORT).show();
-                i++;
-                renewal();
+                oMarkImageView.setVisibility(View.VISIBLE);
+
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        oMarkImageView.setVisibility(View.GONE);
+                        i++;
+                        renewal();}
+                }, 1000);
             }else{
-                Toast.makeText(this, "오답", Toast.LENGTH_SHORT).show();
-                i++;
-                renewal();
+                xMarkImageView.setVisibility(View.VISIBLE);
+                solve_meaning_layout.setBackgroundColor(Color.rgb(255, 51, 51));
+
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        xMarkImageView.setVisibility(View.GONE);
+                        solve_meaning_layout.setBackgroundColor(Color.rgb(0, 204, 204));
+                        i++;
+                        renewal();
+                    }
+                }, 1000);
             }
         }else if(v == button3) {
             if(button3.getText() == korList.get(i - 1)) {
-                Toast.makeText(this, "정답", Toast.LENGTH_SHORT).show();
-                i++;
-                renewal();
+                oMarkImageView.setVisibility(View.VISIBLE);
+
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        oMarkImageView.setVisibility(View.GONE);
+                        i++;
+                        renewal();}
+                }, 1000);
             }else{
-                Toast.makeText(this, "오답", Toast.LENGTH_SHORT).show();
-                i++;
-                renewal();
+                xMarkImageView.setVisibility(View.VISIBLE);
+                solve_meaning_layout.setBackgroundColor(Color.rgb(255, 51, 51));
+
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        xMarkImageView.setVisibility(View.GONE);
+                        solve_meaning_layout.setBackgroundColor(Color.rgb(0, 204, 204));
+                        i++;
+                        renewal();
+                    }
+                }, 1000);
             }
         }
     }
 
     public void renewal() {
+        if(i > count) {
+            finish();
+            return;
+        }
+        randNumbers.clear();
         wordCount.setText(i + "/" + count);
         seeEnglishWord.setText(engList.get(i - 1));
         // 서로 다른 random 값 두 개 생성

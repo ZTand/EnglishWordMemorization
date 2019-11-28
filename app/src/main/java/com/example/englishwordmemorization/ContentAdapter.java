@@ -1,6 +1,8 @@
 package com.example.englishwordmemorization;
 
 import android.app.PendingIntent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +47,16 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentViewHolder>{
                      data.setCheck(!data.getCheck());
                      notifyDataSetChanged();
                  }
+             }
+         });
+         holder.contentBookmarkAdd.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 DBHelper helper = new DBHelper(v.getContext());
+                 SQLiteDatabase db = helper.getWritableDatabase();
+                 db.execSQL("insert into bookmark_word (englishWord, koreanWord) values (?,?)",
+                         new String[]{data.getEnglish(), data.getKorean()});
+                 Toast.makeText(v.getContext(), "북마크에 추가되었습니다", Toast.LENGTH_SHORT).show();
              }
          });
          if(data.getCheck()) {

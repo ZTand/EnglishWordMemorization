@@ -1,11 +1,12 @@
 package com.example.englishwordmemorization;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 10;
 
     public DBHelper(Context context) {
         super(context, "engWordDB", null, DATABASE_VERSION);
@@ -16,19 +17,45 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String tableSql = "create table test_word (" +
                 "_id integer primary key autoincrement," +
-                "mainCategory not null, " +
-                "subClass not null, " +
+                "mainCategory " +
+                "subClass" +
+                "englishWord not null, " +
+                "koreanWord not null)";
+       db.execSQL(tableSql);
+
+        tableSql = "create table bookmark_word (" +
+                "_id integer primary key autoincrement," +
                 "englishWord not null, " +
                 "koreanWord not null)";
         db.execSQL(tableSql);
 
         tableSql = "create table eng_word (" +
                 "_id integer primary key autoincrement," +
-                "mainCategory not null, " +
-                "subClass not null, " +
+                "mainCategory, " +
+                "subClass, " +
                 "englishWord not null, " +
                 "koreanWord not null)";
         db.execSQL(tableSql);
+/*
+        String m = "고1 영어 교과서";
+        String S[] = new String[]{"Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1",
+                "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1",
+                "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1",
+                "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1",
+                "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1"};
+        String E[] = new String[]{};
+        String K[] = new String[]{"d", "d"};
+
+        for(int i = 0; i < S.length; i++) {
+            try{
+                db.beginTransaction();
+                db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values (m, S[i], E[i], K[i])");
+                db.setTransactionSuccessful();
+            }catch (SQLException e) {
+            }finally {
+                db.endTransaction();
+            }
+        }*/
 
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 4', 'translate', '번역하다')");
         db.execSQL("insert into eng_word (mainCategory, subClass, englishWord, koreanWord) values ('고2 영어 교과서', 'Chapter 4', 'community center', '주민 센터')");

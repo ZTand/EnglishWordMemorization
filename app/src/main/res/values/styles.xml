@@ -36,4 +36,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BookmarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#999999</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>

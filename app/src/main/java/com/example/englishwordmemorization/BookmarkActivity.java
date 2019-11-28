@@ -12,64 +12,74 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class ContentActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity {
 
-    RecyclerView contentRecyclerView;
+    RecyclerView bookmarkRecyclerView;
+    Button allDropButton;
     Button checkButton;
     CheckBox allCheckBox;
-    String mainCategoryName;
-    String subClassName;
-    ArrayList<ContentData> data = new ArrayList<>();
+    ArrayList<BookMarkData> data = new ArrayList<>();
+    BookmarkAdapter bookmarkAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
+        setContentView(R.layout.activity_bookmark);
 
-        contentRecyclerView = findViewById(R.id.content_recyclerView);
-        checkButton = findViewById(R.id.check_test);
-        allCheckBox = findViewById(R.id.all_check);
+        bookmarkRecyclerView = findViewById(R.id.bookmark_recyclerView);
+        allDropButton = findViewById(R.id.bookmark_drop);
+        checkButton = findViewById(R.id.bookmark_check_test);
+        allCheckBox = findViewById(R.id.bookmark_all_check);
 
-        Intent intent = getIntent();
-        mainCategoryName = intent.getStringExtra("mainCategoryName");
-        subClassName = intent.getStringExtra("subClassName");
-
-        Toolbar toolbar = findViewById(R.id.content_toolbar);
+        Toolbar toolbar = findViewById(R.id.bookmark_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(subClassName);
+        getSupportActionBar().setTitle("북마크");
 
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select englishWord, koreanWord from eng_word where mainCategory = (?) and subClass = (?);",
-                new String[]{mainCategoryName, subClassName});
+
+        Cursor cursor = db.rawQuery("select englishWord, koreanWord from bookmark_word", null);
         int count = 0;
-        try{
+        try {
             while(cursor.moveToNext()) {
-                ContentData content = new ContentData();
-                content.setEnglish(cursor.getString(0));
-                content.setKorean(cursor.getString(1));
-                content.setCheck(false);
-                data.add(content);
+                BookMarkData bookmark = new BookMarkData();
+                bookmark.setEnglish(cursor.getString(0));
+                bookmark.setKorean(cursor.getString(1));
+                bookmark.setCheck(false);
+                data.add(bookmark);
                 count++;
             }
-        }catch(Exception e){
+        }catch (Exception e) {
             e.printStackTrace();
         }
-        contentRecyclerView.setAdapter(new ContentAdapter(data, allCheckBox));
-        contentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        bookmarkAdapter = new BookmarkAdapter(data, allCheckBox);
+        bookmarkRecyclerView.setAdapter(bookmarkAdapter);
+        bookmarkRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         final int finalCount = count;
+
+        allDropButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBHelper helper = new DBHelper(v.getContext());
+                SQLiteDatabase db = helper.getWritableDatabase();
+                db.execSQL("drop table bookmark_word");
+                String tableSql = "create table bookmark_word (" +
+                        "_id integer primary key autoincrement," +
+                        "englishWord not null, " +
+                        "koreanWord not null)";
+                db.execSQL(tableSql);
+                Toast.makeText(v.getContext(), "삭제되었습니다", Toast.LENGTH_SHORT).show();
+                bookmarkAdapter.clear();
+            }
+        });
 
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,15 +91,16 @@ public class ContentActivity extends AppCompatActivity {
                 String tableSql = "create table test_word (" +
                         "_id integer primary key autoincrement," +
                         "mainCategory, " +
-                        "subClass, " +
+                        "subClass," +
                         "englishWord not null, " +
                         "koreanWord not null)";
                 db.execSQL(tableSql);
+
                 int count = 0;
                 for(int i = 0; i < finalCount; i++) {
                     if(data.get(i).getCheck()) {
-                        db.execSQL("insert into test_word (mainCategory, subClass, englishWord, koreanWord) values (?,?,?,?)",
-                                new String[]{mainCategoryName, subClassName, data.get(i).getEnglish(), data.get(i).getKorean()});
+                        db.execSQL("insert into test_word (englishWord, koreanWOrd) values (?, ?)",
+                                new String[]{data.get(i).getEnglish(), data.get(i).getKorean()});
                         count++;
                     }
                 }
@@ -107,15 +118,15 @@ public class ContentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(((CheckBox)v).isChecked()) {
                     for(int i = 0; i < finalCount; i++) {
-                        ContentData contentData= data.get(i);
-                        contentData.setCheck(true);
-                        contentRecyclerView.getAdapter().notifyDataSetChanged();
+                        BookMarkData bookMarkData= data.get(i);
+                        bookMarkData.setCheck(true);
+                        bookmarkRecyclerView.getAdapter().notifyDataSetChanged();
                     }
                 }else if(!((CheckBox)v).isChecked()) {
                     for(int i = 0; i < finalCount; i++) {
-                        ContentData contentData= data.get(i);
-                        contentData.setCheck(false);
-                        contentRecyclerView.getAdapter().notifyDataSetChanged();
+                        BookMarkData bookMarkData= data.get(i);
+                        bookMarkData.setCheck(false);
+                        bookmarkRecyclerView.getAdapter().notifyDataSetChanged();
                     }
                 }
             }

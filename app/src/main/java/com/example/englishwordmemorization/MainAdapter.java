@@ -32,11 +32,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
     public void onBindViewHolder(@NonNull MainViewHolder holder, final int position) {
         MainData data = list.get(position);
         holder.mainName.setText(data.getCategory());
+        if(position == 0) {
+            holder.mainImage.setImageResource(R.drawable.high1);
+        }else if(position == 1) {
+            holder.mainImage.setImageResource(R.drawable.high2);
+        }
+
         holder.mainImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SubActivity.class);
-                intent.putExtra("mainCategoryName", datas.get(position));
+                intent.putExtra("mainCategoryName", list.get(position).getCategory());
                 v.getContext().startActivity(intent);
             }
         });

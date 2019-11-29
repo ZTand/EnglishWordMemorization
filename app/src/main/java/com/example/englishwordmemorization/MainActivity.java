@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bookmarkWordNum = findViewById(R.id.bookmark_word_num);
+
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select englishWord from bookmark_word", null);
@@ -64,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
         bookmarkWordNum.setText("총 단어 수   " + count);
         mainRecyclerView = findViewById(R.id.main_recyclerView);
 
-        helper = new DBHelper(this);
-        db = helper.getWritableDatabase();
         cursor = db.rawQuery("select mainCategory from eng_word", null);
         int countWord = 0;
         try {
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select englishWord from bookmark_word", null);

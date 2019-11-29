@@ -43,7 +43,7 @@ public class BookmarkActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("북마크");
 
         DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
+        final SQLiteDatabase db = helper.getWritableDatabase();
 
         Cursor cursor = db.rawQuery("select englishWord, koreanWord from bookmark_word", null);
         int count = 0;
@@ -62,8 +62,6 @@ public class BookmarkActivity extends AppCompatActivity {
         bookmarkAdapter = new BookmarkAdapter(data, allCheckBox);
         bookmarkRecyclerView.setAdapter(bookmarkAdapter);
         bookmarkRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        final int finalCount = count;
 
         allDropButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +95,7 @@ public class BookmarkActivity extends AppCompatActivity {
                 db.execSQL(tableSql);
 
                 int count = 0;
-                for(int i = 0; i < finalCount; i++) {
+                for(int i = 0; i < data.size(); i++) {
                     if(data.get(i).getCheck()) {
                         db.execSQL("insert into test_word (englishWord, koreanWOrd) values (?, ?)",
                                 new String[]{data.get(i).getEnglish(), data.get(i).getKorean()});
@@ -117,13 +115,13 @@ public class BookmarkActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(((CheckBox)v).isChecked()) {
-                    for(int i = 0; i < finalCount; i++) {
+                    for(int i = 0; i < data.size(); i++) {
                         BookMarkData bookMarkData= data.get(i);
                         bookMarkData.setCheck(true);
                         bookmarkRecyclerView.getAdapter().notifyDataSetChanged();
                     }
                 }else if(!((CheckBox)v).isChecked()) {
-                    for(int i = 0; i < finalCount; i++) {
+                    for(int i = 0; i < data.size(); i++) {
                         BookMarkData bookMarkData= data.get(i);
                         bookMarkData.setCheck(false);
                         bookmarkRecyclerView.getAdapter().notifyDataSetChanged();

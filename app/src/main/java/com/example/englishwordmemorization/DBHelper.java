@@ -3,6 +3,7 @@ package com.example.englishwordmemorization;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -21,13 +22,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 "subClass" +
                 "englishWord not null, " +
                 "koreanWord not null)";
-       db.execSQL(tableSql);
+        try {
+            db.execSQL(tableSql);
+        }catch (SQLiteException e) {
+
+        }
 
         tableSql = "create table bookmark_word (" +
                 "_id integer primary key autoincrement," +
                 "englishWord not null, " +
                 "koreanWord not null)";
-        db.execSQL(tableSql);
+        try {
+            db.execSQL(tableSql);
+        }catch (SQLiteException e) {
+
+        }
 
         tableSql = "create table eng_word (" +
                 "_id integer primary key autoincrement," +
@@ -35,7 +44,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "subClass, " +
                 "englishWord not null, " +
                 "koreanWord not null)";
-        db.execSQL(tableSql);
+        try {
+            db.execSQL(tableSql);
+        } catch (SQLiteException e) {
+
+        }
 /*
         String m = "고1 영어 교과서";
         String S[] = new String[]{"Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1", "Chapter 1",
@@ -244,12 +257,16 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table eng_word");
+        db.execSQL("drop table test_word");
+        db.execSQL("drop table bookmark_word");
         onCreate(db);
     }
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table eng_word");
+        db.execSQL("drop table test_word");
+        db.execSQL("drop table bookmark_word");
         onCreate(db);
     }
 }

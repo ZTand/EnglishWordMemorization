@@ -1,5 +1,6 @@
 package com.example.englishwordmemorization;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,23 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkViewHolder> {
         final BookMarkData data = list.get(position);
         holder.bookmarkEngTextView.setText(data.getEnglish());
         holder.bookmarkKorTextView.setText(data.getKorean());
+        holder.bookmarkRemoveTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0; i < list.size(); i++) {
+                    if(list.get(i) == data) {
+                        String e = data.getEnglish();
+                        String k = data.getKorean();
+                        DBHelper helper = new DBHelper(v.getContext());
+                        SQLiteDatabase db = helper.getWritableDatabase();
+                        db.execSQL("delete from bookmark_word where englishWord = (?) and koreanWord = (?)", new String[]{e, k});
+                        list.remove(i);
+                        notifyItemRemoved(i);
+                        break;
+                    }
+                }
+            }
+        });
         holder.bookmarkCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +90,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkViewHolder> {
             for (int i = 0; i < size; i++) {
                 list.remove(0);
             }
-
             notifyItemRangeRemoved(0, size);
         }
     }

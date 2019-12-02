@@ -5,11 +5,11 @@ import androidx.annotation.Nullable;
 public class MainData {
     private String category;
 
-    public String getCategory() {
+    String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    void setCategory(String category) {
         this.category = category;
     }
 

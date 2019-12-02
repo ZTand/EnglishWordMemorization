@@ -6,13 +6,14 @@
 
     <ImageView
         android:id="@+id/main_image"
-        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/high2"
         android:maxWidth="338dp"
         android:maxHeight="338dp"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:src="@drawable/high2"
+        android:contentDescription="@string/content_description_text"/>
 
     <TextView
         android:id="@+id/main_name"

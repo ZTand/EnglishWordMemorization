@@ -1,7 +1,6 @@
 package com.example.englishwordmemorization;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,22 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.TreeSet;
 
 public class SubActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -110,10 +102,18 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
             Cursor cursor = db.rawQuery("select subClass, englishWord, koreanWord from eng_word where mainCategory = (?);", new String[]{mainCategoryName});
             while(cursor.moveToNext()) {
-                sub = cursor.getString(0);
-                eng = cursor.getString(1);
-                kor = cursor.getString(2);
-                db.execSQL("insert into test_word (mainCategory, subClass, englishWord, koreanWord) values (?,?,?,?)", new String[]{mainCategoryName, sub, eng, kor});
+                try{
+                    db.beginTransaction();
+                    sub = cursor.getString(0);
+                    eng = cursor.getString(1);
+                    kor = cursor.getString(2);
+                    db.execSQL("insert into test_word (mainCategory, subClass, englishWord, koreanWord) values (?,?,?,?)", new String[]{mainCategoryName, sub, eng, kor});
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    db.endTransaction();
+                }
             }
             Intent intent = new Intent(this, QuizChooseActivity.class);
             startActivity(intent);

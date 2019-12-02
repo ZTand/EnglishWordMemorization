@@ -1,7 +1,6 @@
 package com.example.englishwordmemorization;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,9 @@ import java.util.ArrayList;
 public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
 
     private ArrayList<MainData> list;
-    ArrayList<String> datas;
 
-    public MainAdapter(ArrayList<MainData> list, ArrayList<String> datas) {
+    MainAdapter(ArrayList<MainData> list) {
         this.list = list;
-        this.datas = datas;
     }
 
     @NonNull
@@ -30,14 +27,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, final int position) {
-        MainData data = list.get(position);
-        holder.mainName.setText(data.getCategory());
+        MainData itemData = list.get(position);
+        holder.mainName.setText(itemData.getCategory());
         if(position == 0) {
             holder.mainImage.setImageResource(R.drawable.high1);
         }else if(position == 1) {
             holder.mainImage.setImageResource(R.drawable.high2);
         }
-
         holder.mainImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -17,34 +17,33 @@
             android:maxWidth="30dp"
             android:adjustViewBounds="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
-            android:clickable="true"
-            android:src="@drawable/bookmark"/>
+            android:layout_marginStart="8dp"
+            android:focusable="true"
+            android:src="@drawable/bookmark"
+            android:contentDescription="@string/content_description_text"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:id="@+id/content_eng"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:textColor="#000000"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/content_kor"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/content_eng"
                 android:textColor="#999999"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <CheckBox
             android:id="@+id/content_checkbox"
@@ -52,7 +51,7 @@
             android:layout_height="wrap_content"
             android:button="@drawable/checkbox_selector"
             android:layout_gravity="center"
-            android:layout_marginRight="8dp" />
+            android:layout_marginEnd="8dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

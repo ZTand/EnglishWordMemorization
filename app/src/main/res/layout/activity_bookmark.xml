@@ -25,11 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FF0000"
-            android:text="모두 삭제"
+            android:text="@string/bookmark_all_delete"
             android:textColor="#FFFFFF"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"/>
         <TextView
@@ -42,11 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#0099FF"
-            android:text="Test"
+            android:text="@string/content_test_btn"
             android:textColor="#FFFFFF"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"/>
 
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:button="@drawable/checkbox_selector"
             android:layout_gravity="center"
-            android:layout_marginRight="8dp"/>
+            android:layout_marginEnd="8dp"/>
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.PendingIntent;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,8 +41,9 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
     ArrayList<String> korList = new ArrayList<>();
     ArrayList<String> engList = new ArrayList<>();
     HashSet<Integer> randNumbers = new HashSet<>();
-
+    
     int i, count;
+    int guess, wrong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +65,9 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
-
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
-        i = 1; count = 0;
+        i = 1; count = 0; guess = 0; wrong = 0;
         Cursor cursor = db.rawQuery("select englishWord, koreanWord from test_word", null);
         while (cursor.moveToNext()) {
             count++;
@@ -89,9 +91,10 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if(v == button1) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             if(button1.getText() == korList.get(i - 1)) {
+                guess++;
                 oMarkImageView.setVisibility(View.VISIBLE);
-
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -103,9 +106,9 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
                     }
                 }, 1000);
             }else{
+                wrong++;
                 xMarkImageView.setVisibility(View.VISIBLE);
                 solve_meaning_layout.setBackgroundColor(Color.rgb(255, 51, 51));
-
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -119,9 +122,10 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
                 }, 1000);
             }
         }else if(v == button2) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             if(button2.getText() == korList.get(i - 1)) {
+                guess++;
                 oMarkImageView.setVisibility(View.VISIBLE);
-
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -132,9 +136,9 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
                         renewal();}
                 }, 1000);
             }else{
+                wrong++;
                 xMarkImageView.setVisibility(View.VISIBLE);
                 solve_meaning_layout.setBackgroundColor(Color.rgb(255, 51, 51));
-
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -148,9 +152,10 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
                 }, 1000);
             }
         }else if(v == button3) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             if(button3.getText() == korList.get(i - 1)) {
+                guess++;
                 oMarkImageView.setVisibility(View.VISIBLE);
-
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -161,9 +166,9 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
                         renewal();}
                 }, 1000);
             }else{
+                wrong++;
                 xMarkImageView.setVisibility(View.VISIBLE);
                 solve_meaning_layout.setBackgroundColor(Color.rgb(255, 51, 51));
-
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -180,8 +185,13 @@ public class SolveMeaningActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void renewal() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         if(i > count) {
             finish();
+            Intent intent = new Intent(this, TestResultActivity.class);
+            intent.putExtra("guess", guess);
+            intent.putExtra("wrong", wrong);
+            startActivity(intent);
             return;
         }
         randNumbers.clear();

@@ -9,11 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BookmarkActivity"
-            android:theme="@style/BookmarkTheme"></activity>
-        <activity android:name=".SolveMeaningResultActivity" />
-        <activity android:name=".SolveSpellingActivity" />
-        <activity android:name=".SolveWordActivity" />
+        <activity android:name=".TestResultActivity"></activity>
+        <activity
+            android:name=".BookmarkActivity"
+            android:theme="@style/BookmarkTheme" />
+        <activity android:name=".SolveSpellingActivity"
+            android:theme="@style/SolveSpellingTheme"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity android:name=".SolveWordActivity"
+            android:theme="@style/SolveWordTheme"/>
         <activity
             android:name=".SolveMeaningActivity"
             android:theme="@style/SolveMeaningTheme" />

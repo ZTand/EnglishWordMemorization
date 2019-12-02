@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_gravity="center"
@@ -24,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="32dp"
-            android:src="@drawable/test" />
+            android:src="@drawable/test"
+            android:contentDescription="@string/content_description_text" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +42,7 @@
             android:layout_marginTop="32dp"
             android:background="#0099FF"
             android:textColor="#FFFFFF"
-            android:text="영어 단어 보고 뜻 맞히기"
+            android:text="@string/test1_btn"
             android:textSize="24sp"/>
 
         <Button
@@ -54,7 +54,7 @@
             android:layout_marginTop="32dp"
             android:background="#0099FF"
             android:textColor="#FFFFFF"
-            android:text="뜻 보고 영어 단어 맞히기"
+            android:text="@string/test2_btn"
             android:textSize="24sp"/>
 
         <Button
@@ -66,8 +66,8 @@
             android:layout_marginTop="32dp"
             android:background="#0099FF"
             android:textColor="#FFFFFF"
-            android:text="스펠링 입력하기"
-            android:textSize="24sp"/>
+            android:text="@string/test3_btn"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 

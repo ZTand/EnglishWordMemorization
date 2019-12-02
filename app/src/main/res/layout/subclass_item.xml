@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -26,17 +26,17 @@
             android:id="@+id/subclass_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List"
+            android:text="@string/subclass_item_list_btn"
             android:textColor="#000000"
-            android:textSize="20dp"
-            android:clickable="true"/>
+            android:textSize="20sp"
+            android:focusable="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="|"
+            android:text="@string/subclass_item_contour"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"/>
 
@@ -44,11 +44,11 @@
             android:id="@+id/subclass_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test"
+            android:text="@string/subclass_item_test_btn"
             android:textColor="#000000"
-            android:textSize="20dp"
-            android:layout_marginRight="32dp"
-            android:clickable="true"/>
+            android:textSize="20sp"
+            android:layout_marginEnd="32dp"
+            android:focusable="true"/>
 
     </LinearLayout>
 

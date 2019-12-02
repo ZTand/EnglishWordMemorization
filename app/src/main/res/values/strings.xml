@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">EnglishWordMemorization</string>
+    <string name="content_description_text">로딩 실패</string>
+
+    <!-- activity_main.xml -->
+    <string name="bookmark_title">북마크\n단어모음 > </string>
+    <string name="category_list_title">영단어 카테고리 목록</string>
+
+    <!-- activity_sub.xml -->
+    <string name="all_test_btn_text">모든 단어 TEST</string>
+
+    <!-- subclass_item.xml -->
+    <string name="subclass_item_list_btn">List</string>
+    <string name="subclass_item_contour">|</string>
+    <string name="subclass_item_test_btn">Test</string>
+
+    <!-- activity_content.xml -->
+    <string name="content_test_btn">TEST</string>
+
+    <!-- activity_bookmark.xml -->
+    <string name="bookmark_all_delete">모두 삭제</string>
+
+    <!-- bookmark_item.xml -->
+    <string name="item_delete_text">삭제</string>
+
+    <!-- activity_quiz_choose.xml -->
+    <string name="test1_btn">영어 단어 보고 뜻 맞히기</string>
+    <string name="test2_btn">뜻 보고 영어 단어 맞히기</string>
+    <string name="test3_btn">스펠링 입력하기(대소문자, 띄어쓰기 구분X)</string>
 </resources>

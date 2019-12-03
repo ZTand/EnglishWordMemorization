@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EnglishWordMemorization</string>
+    <string name="app_name">나만의 영단어장</string>
     <string name="content_description_text">로딩 실패</string>
 
     <!-- activity_main.xml -->
